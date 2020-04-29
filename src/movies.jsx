@@ -37,10 +37,10 @@ class Movies extends Component {
     const results = movies.results;
     let { page } = queryString.parse(this.props.location.search);
     results &&
-      results.sort(function (a, b) {
+      results.sort((a, b) => {
         var dateA = new Date(a.release_date),
           dateB = new Date(b.release_date);
-        return dateA - dateB;
+        return dateB - dateA;
       });
     page = page ? +page : 1;
     return (
@@ -55,7 +55,7 @@ class Movies extends Component {
           {results &&
             results.map((item, i) => (
               <div
-                className="col-lg-2 col "
+                className="col-lg-2 col-6 "
                 onClick={() => this.getDetails(item.id)}
                 key={i}
               >

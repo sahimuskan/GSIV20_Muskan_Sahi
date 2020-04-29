@@ -8,10 +8,12 @@ class MovieDetail extends Component {
     this.props.dispatch(fetchMovieId(this.props.match.params.id));
   }
   getRunTime(time) {
-    let hrMin = time / 60;
-    hrMin = String(hrMin).split(".");
-
-    return `${hrMin[0]} : ${hrMin[1].slice(0, 2)} `;
+    if (time === 0) {
+      return " NA";
+    }
+    let hrMin = time ? String(time / 60) : 0;
+    hrMin = hrMin.split(".");
+    return ` ${hrMin[0]} : ${hrMin[1].slice(0, 2)} `;
   }
   home() {
     this.props.history.push("/movies");
@@ -67,7 +69,7 @@ class MovieDetail extends Component {
                 </div>
                 <div className="col-12">
                   Cast:{" "}
-                  {movie.credits.cast.map((item, i) => item.name).join(", ")}
+                  {movie.credits.cast.filter((item, i) => i<2).map(item=>item.name).join(", ")}...
                 </div>
                 <div className="col-12 text-justify">
                   <p>Description:{movie.overview}</p>
